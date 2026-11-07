@@ -1,0 +1,25 @@
+{
+  "name": "MCRN Personal Field Terminal",
+  "short_name": "MCRN Terminal",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#080c0d",
+  "theme_color": "#090d0e",
+  "description": "Unofficial Expanse-inspired personal field terminal",
+  "icons": [
+    {
+      "src": "icons/mcrn-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/mcrn-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

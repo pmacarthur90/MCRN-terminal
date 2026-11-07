@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090d0e">
+<meta name="description" content="Personal MCRN field terminal">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/mcrn-192.png">
+<title>MCRN // FIELD TERMINAL</title>
+<style>
+:root{--bg:#080c0d;--panel:#101719;--panel2:#0c1214;--line:#294044;--red:#e44c42;--amber:#e7ad55;--cyan:#82c9c5;--muted:#718487;--white:#e2ece9;--green:#78b99a;--mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}
+*{box-sizing:border-box}html{background:var(--bg);color:var(--white);font-family:var(--mono)}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -10%,#203033 0,#0b1113 43%,#070a0b 100%);padding:env(safe-area-inset-top) 12px env(safe-area-inset-bottom);letter-spacing:.035em}
+button,input,textarea{font:inherit;color:inherit}button{cursor:pointer}
+.shell{max-width:760px;margin:auto;padding:10px 0 28px}.topline{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:7px 2px 10px;font-size:10px;color:var(--muted);letter-spacing:.14em}.brand{color:var(--red);font-weight:900;letter-spacing:.18em}.status{color:var(--green)}
+.hero{padding:21px 5px 17px;position:relative}.eyebrow{font-size:10px;color:var(--red);letter-spacing:.2em}.clock{font-size:clamp(36px,11vw,64px);line-height:1.02;font-weight:700;letter-spacing:-.07em;margin:8px 0 2px}.date{font-size:11px;color:var(--muted)}.unit{position:absolute;right:6px;top:30px;text-align:right;color:var(--muted);font-size:9px;line-height:1.8}.unit strong{display:block;color:var(--amber);font-size:12px}
+.alert{border:1px solid #67312e;background:linear-gradient(90deg,#291513,#111718);padding:10px 12px;margin:4px 0 14px;display:flex;justify-content:space-between;gap:8px;font-size:10px}.alert b{color:var(--red);letter-spacing:.15em}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.panel{background:linear-gradient(145deg,rgba(20,30,32,.96),rgba(10,16,18,.98));border:1px solid var(--line);padding:12px;min-width:0;position:relative;box-shadow:inset 0 1px #ffffff08}.panel:before{content:"";position:absolute;left:-1px;top:-1px;width:22px;height:2px;background:var(--red)}.panel h2{font-size:10px;color:var(--cyan);letter-spacing:.16em;margin:0 0 10px;font-weight:700}.bigdata{font-size:23px;color:var(--white);letter-spacing:-.05em}.sub{font-size:9px;color:var(--muted);margin-top:4px;line-height:1.5}.meter{height:4px;background:#263437;margin-top:9px}.meter span{display:block;height:100%;width:0;background:var(--red);transition:width .3s}.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:13px 0}.action{border:1px solid var(--line);background:#101719;padding:12px 5px;text-align:center;text-decoration:none;color:var(--white);font-size:9px;letter-spacing:.1em;display:block}.action:active,.tile:active{border-color:var(--red);background:#261514}.action .glyph{display:block;font-size:19px;color:var(--red);margin-bottom:6px}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin:19px 2px 8px;color:var(--red);font-size:10px;letter-spacing:.18em}.sectionhead span:last-child{color:var(--muted);font-size:9px}.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tile{background:var(--panel);border:1px solid var(--line);padding:13px 11px;text-align:left;min-height:74px}.tile b{display:block;font-size:11px;color:var(--cyan);letter-spacing:.12em}.tile small{display:block;color:var(--muted);font-size:9px;margin-top:6px;line-height:1.4}.wide{grid-column:1/-1}.readout{font-size:11px;line-height:1.8;color:var(--muted);overflow-wrap:anywhere}.readout strong{color:var(--white);font-weight:500}.formrow{display:flex;gap:6px;margin-top:8px}.formrow input,.formrow textarea{min-width:0;flex:1;background:#080d0e;border:1px solid var(--line);padding:10px;font-size:11px;outline:none}.formrow button,.smallbtn{background:#241615;border:1px solid #783932;color:#ffb0a8;padding:9px 11px;font-size:10px}.list{padding:0;margin:8px 0 0;list-style:none}.list li{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid #263436;font-size:11px}.list li span{flex:1;overflow-wrap:anywhere}.list input{accent-color:var(--red)}.del{border:0;background:transparent;color:var(--muted);padding:4px}.compass{width:104px;height:104px;border:1px solid #3b5557;border-radius:50%;margin:4px auto 8px;position:relative;background:repeating-conic-gradient(from 0deg,#152326 0deg 1deg,#0b1214 1deg 15deg)}.compass:before{content:"N";position:absolute;top:4px;left:calc(50% - 4px);font-size:10px;color:var(--red)}.needle{position:absolute;left:50%;top:17px;width:2px;height:36px;background:var(--red);transform-origin:50% 35px;box-shadow:0 0 8px #e44c42}.compass:after{content:"";position:absolute;left:calc(50% - 3px);top:calc(50% - 3px);width:6px;height:6px;background:var(--amber);border-radius:50%}.footer{border-top:1px solid var(--line);margin-top:20px;padding:12px 3px;color:#536568;font-size:8px;display:flex;justify-content:space-between;gap:10px}.modal{position:fixed;inset:0;background:#000b;display:none;align-items:flex-end;justify-content:center;padding:12px;z-index:5}.modal.open{display:flex}.sheet{width:min(760px,100%);max-height:85vh;overflow:auto;background:#0d1517;border:1px solid var(--line);padding:16px}.sheet h3{color:var(--red);font-size:12px;letter-spacing:.15em}.sheet textarea{width:100%;min-height:120px;background:#080d0e;border:1px solid var(--line);padding:10px;font-size:11px}.close{float:right;background:transparent;border:1px solid var(--line);padding:6px 10px;color:var(--muted)}
+@media(min-width:600px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.tiles{grid-template-columns:repeat(4,minmax(0,1fr))}.hero{padding-top:28px}.actions{grid-template-columns:repeat(6,1fr)}}
+</style>
+</head>
+<body>
+<div class="shell">
+ <div class="topline"><span class="brand">MCRN // PERSONAL TERMINAL</span><span class="status">● ONLINE</span></div>
+ <header class="hero">
+  <div class="eyebrow">MARTIAN CONGRESSIONAL REPUBLIC NAVY</div>
+  <div class="clock" id="clock">00:00:00</div>
+  <div class="date" id="date">LOCAL SHIP TIME</div>
+  <div class="unit">FIELD UNIT<strong>MK-VII / PERS</strong>AUTH LEVEL: CIVILIAN</div>
+ </header>
+ <div class="alert"><span><b>NOTICE //</b> PERSONAL FIELD TERMINAL ACTIVE</span><span id="net">LINK CHECK...</span></div>
+ <div class="grid">
+  <section class="panel"><h2>POWER CELL</h2><div class="bigdata" id="battery">--%</div><div class="sub" id="batterySub">BATTERY TELEMETRY</div><div class="meter"><span id="batteryBar"></span></div></section>
+  <section class="panel"><h2>NETWORK LINK</h2><div class="bigdata" id="network">--</div><div class="sub" id="networkSub">CONNECTIVITY STATUS</div><div class="meter"><span id="networkBar"></span></div></section>
+  <section class="panel"><h2>LOCAL TIME</h2><div class="bigdata" id="timeZone">--</div><div class="sub" id="tzSub">LOCAL TIME ZONE</div></section>
+  <section class="panel"><h2>POSITION FIX</h2><div class="bigdata" id="position">NO FIX</div><div class="sub" id="positionSub">GPS STANDBY</div></section>
+ </div>
+ <div class="sectionhead"><span>QUICK SYSTEMS</span><span>DIRECT ACCESS</span></div>
+ <div class="actions">
+  <a class="action" href="tel:"><span class="glyph">⌁</span>COMMS</a>
+  <a class="action" href="sms:"><span class="glyph">▤</span>MESSAGES</a>
+  <a class="action" href="https://maps.google.com"><span class="glyph">◎</span>NAV</a>
+  <a class="action" href="https://calendar.google.com"><span class="glyph">▦</span>SCHEDULE</a>
+  <a class="action" href="https://mail.google.com"><span class="glyph">✉</span>MAIL</a>
+  <a class="action" href="https://www.google.com"><span class="glyph">⌕</span>INTEL</a>
+ </div>
+ <div class="sectionhead"><span>TACTICAL & FIELD DATA</span><span>LIVE SENSORS</span></div>
+ <div class="tiles">
+  <button class="tile" id="gpsBtn"><b>⌖ POSITION FIX</b><small>Acquire current GPS coordinates</small></button>
+  <button class="tile" id="compassBtn"><b>◉ COMPASS</b><small>Read device heading if permitted</small></button>
+  <button class="tile" id="weatherBtn"><b>☼ WEATHER</b><small>Open local weather briefing</small></button>
+  <button class="tile" id="torchBtn"><b>ϟ LIGHT</b><small>Open device flashlight controls</small></button>
+  <div class="panel wide">
+   <h2>HEADING / E-COMPASS</h2>
+   <div class="compass"><div class="needle" id="needle"></div></div>
+   <div class="readout" style="text-align:center"><strong id="heading">AWAITING SENSOR</strong><br><span id="headingSub">Tap COMPASS to request sensor access</span></div>
+  </div>
+  <div class="panel wide">
+   <h2>POSITION / GPS TELEMETRY</h2>
+   <div class="readout" id="gpsReadout">No position acquired. Tap POSITION FIX to request location access. Coordinates remain on this device unless you choose to open a map.</div>
+  </div>
+ </div>
+ <div class="sectionhead"><span>PERSONAL LOGISTICS</span><span>LOCAL STORAGE ONLY</span></div>
+ <div class="tiles">
+  <div class="panel wide">
+   <h2>MISSION TASKS</h2>
+   <div class="formrow"><input id="taskInput" placeholder="Enter task / mission objective" maxlength="120"><button id="addTask">ADD</button></div>
+   <ul class="list" id="taskList"></ul>
+  </div>
+  <div class="panel wide">
+   <h2>PERSONAL LOG / NOTES</h2>
+   <textarea id="notes" placeholder="Enter field notes. Saved automatically on this device..." style="width:100%;min-height:100px;background:#080d0e;border:1px solid var(--line);padding:10px;font:11px var(--mono);color:var(--white)"></textarea>
+   <div class="sub">NOTES ARE STORED IN THIS BROWSER'S LOCAL STORAGE. THEY ARE NOT SYNCED OR ENCRYPTED.</div>
+  </div>
+  <button class="tile" id="settingsBtn"><b>⚙ SYSTEMS</b><small>Browser capabilities & terminal settings</small></button>
+  <a class="tile" href="https://support.google.com/android/answer/9075927" style="text-decoration:none"><b>▣ DEVICE GUIDE</b><small>Android device support</small></a>
+ </div>
+ <div class="footer"><span>MCRN FIELD TERMINAL // MK-VII</span><span>UNOFFICIAL FAN-MADE INTERFACE</span></div>
+</div>
+<div class="modal" id="modal"><div class="sheet"><button class="close" id="closeModal">CLOSE</button><h3 id="modalTitle">SYSTEM REPORT</h3><div id="modalBody" class="readout"></div></div></div>
+<script>
+const $=id=>document.getElementById(id);
+function tick(){const d=new Date();$('clock').textContent=d.toLocaleTimeString([], {hour12:false});$('date').textContent=d.toLocaleDateString([], {weekday:'long',year:'numeric',month:'short',day:'numeric'}).toUpperCase();$('timeZone').textContent=d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',hour12:false});$('tzSub').textContent=Intl.DateTimeFormat().resolvedOptions().timeZone||'LOCAL TIME';}
+tick();setInterval(tick,1000);
+function net(){let on=navigator.onLine;$('network').textContent=on?'LINK UP':'OFFLINE';$('net').textContent=on?'NETWORK NOMINAL':'NO NETWORK';$('networkSub').textContent=navigator.connection?.effectiveType?.toUpperCase()||'BROWSER LINK STATUS';$('networkBar').style.width=on?'100%':'8%';$('networkBar').style.background=on?'var(--green)':'var(--red)';}
+net();addEventListener('online',net);addEventListener('offline',net);
+if(navigator.getBattery){navigator.getBattery().then(b=>{function upd(){$('battery').textContent=Math.round(b.level*100)+'%';$('batterySub').textContent=b.charging?'CHARGING / '+(b.chargingTime===Infinity?'--':Math.round(b.chargingTime/60)+' MIN TO FULL'):'DISCHARGING';$('batteryBar').style.width=(b.level*100)+'%';}upd();b.addEventListener('levelchange',upd);b.addEventListener('chargingchange',upd);}).catch(()=>{$('batterySub').textContent='BATTERY API UNAVAILABLE';});}else{$('batterySub').textContent='BATTERY API NOT EXPOSED BY BROWSER';}
+function modal(title,body){$('modalTitle').textContent=title;$('modalBody').textContent=body;$('modal').classList.add('open')}
+$('closeModal').onclick=()=>$('modal').classList.remove('open');$('modal').onclick=e=>{if(e.target===$('modal'))$('modal').classList.remove('open')};
+$('gpsBtn').onclick=()=>{if(!navigator.geolocation){$('gpsReadout').textContent='Geolocation is unavailable in this browser.';return;}$('position').textContent='ACQUIRING';$('positionSub').textContent='WAITING FOR GPS';navigator.geolocation.getCurrentPosition(p=>{let lat=p.coords.latitude,lon=p.coords.longitude,acc=Math.round(p.coords.accuracy);$('position').textContent='FIX ACQUIRED';$('positionSub').textContent='±'+acc+' M ACCURACY';$('gpsReadout').textContent='LAT  '+lat.toFixed(6)+'\\nLON  '+lon.toFixed(6)+'\\nALT  '+(p.coords.altitude==null?'N/A':Math.round(p.coords.altitude)+' M')+'\\nACCURACY  ±'+acc+' M\\nFIX TIME  '+new Date(p.timestamp).toLocaleTimeString();let a=document.createElement('a');a.href=`https://maps.google.com/?q=${lat},${lon}`;a.textContent='OPEN POSITION IN MAPS';a.style.color='var(--amber)';a.style.display='inline-block';a.style.marginTop='8px';$('gpsReadout').appendChild(document.createElement('br'));$('gpsReadout').appendChild(a);},e=>{$('position').textContent='FIX FAILED';$('positionSub').textContent=e.message;$('gpsReadout').textContent='Location permission or GPS unavailable: '+e.message;},{enableHighAccuracy:true,timeout:15000,maximumAge:10000});};
+let sensorOn=false;
+$('compassBtn').onclick=async()=>{try{if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){let p=await DeviceOrientationEvent.requestPermission();if(p!=='granted')throw new Error('Sensor permission denied');}sensorOn=true;$('headingSub').textContent='Move phone flat; keep away from magnetic interference';if(!('ondeviceorientationabsolute' in window)&&!('ondeviceorientation' in window))throw new Error('Orientation sensor unavailable');}catch(e){$('heading').textContent='SENSOR UNAVAILABLE';$('headingSub').textContent=e.message;}};
+function orientation(e){if(!sensorOn)return;let h=null;if(typeof e.webkitCompassHeading==='number')h=e.webkitCompassHeading;else if(e.absolute&&typeof e.alpha==='number')h=(360-e.alpha)%360;if(h==null)return;$('heading').textContent=Math.round(h)+'° '+(['N','NE','E','SE','S','SW','W','NW'][Math.round(h/45)%8]);$('needle').style.transform=`translateX(-50%) rotate(${h}deg)`;}
+addEventListener('deviceorientationabsolute',orientation,true);addEventListener('deviceorientation',orientation,true);
+$('weatherBtn').onclick=()=>{let url='https://www.google.com/search?q=weather+near+me';window.open(url,'_blank','noopener');};
+$('torchBtn').onclick=()=>modal('LIGHTING CONTROL','For safety, this dashboard does not control the camera LED directly. Use Android Quick Settings: swipe down twice and tap Flashlight. You can also use the phone’s built-in flashlight gesture if enabled.');
+const KEY='mcrn-terminal-v1-tasks';let tasks=[];try{tasks=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
+function saveTasks(){localStorage.setItem(KEY,JSON.stringify(tasks));renderTasks()}
+function renderTasks(){let ul=$('taskList');ul.innerHTML='';tasks.forEach((t,i)=>{let li=document.createElement('li'),cb=document.createElement('input'),sp=document.createElement('span'),del=document.createElement('button');cb.type='checkbox';cb.checked=t.done;cb.onchange=()=>{tasks[i].done=cb.checked;saveTasks()};sp.textContent=t.text;if(t.done)sp.style.textDecoration='line-through';del.textContent='×';del.className='del';del.onclick=()=>{tasks.splice(i,1);saveTasks()};li.append(cb,sp,del);ul.appendChild(li)})}
+$('addTask').onclick=()=>{let v=$('taskInput').value.trim();if(!v)return;tasks.push({text:v,done:false});$('taskInput').value='';saveTasks()};$('taskInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('addTask').click()});renderTasks();
+$('notes').value=localStorage.getItem('mcrn-terminal-v1-notes')||'';$('notes').addEventListener('input',()=>localStorage.setItem('mcrn-terminal-v1-notes',$('notes').value));
+$('settingsBtn').onclick=()=>modal('SYSTEMS DIAGNOSTIC',`USER AGENT: ${navigator.userAgent}\\nPLATFORM: ${navigator.platform||'not reported'}\\nLANGUAGE: ${navigator.language}\\nONLINE: ${navigator.onLine}\\nGEOLOCATION: ${!!navigator.geolocation}\\nORIENTATION: ${'DeviceOrientationEvent' in window}\\nBATTERY API: ${!!navigator.getBattery}\\nSTORAGE: local browser storage enabled\\n\\nLIMITATIONS: Browser apps cannot read full device diagnostics, SMS contents, call history, or control system radios/flashlight without native Android permissions and app integration.`);
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+</body></html>
